@@ -38,7 +38,7 @@ class GPT:
             openai.api_key = self.get_api()
 
             try:
-                return openai.Completion.create(
+                resp = openai.Completion.create(
                     model="text-davinci-003",
                     prompt=text,
                     temperature=0,
@@ -46,6 +46,10 @@ class GPT:
                     frequency_penalty=0,
                     presence_penalty=0,
                 )['choices'][0]['text']
+
+                if resp == '': raise 0
+
+                return resp
             except Exception as error:
                 print(Fore.RED, f'[{datetime.now().time()}] [GET TEXT {error}]')
 
